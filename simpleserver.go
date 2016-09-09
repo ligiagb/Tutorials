@@ -8,8 +8,14 @@ import (
     "net/http"
     "unicode/utf8"
 )
-
-
+//json to tell the client website is safe and return the same URL - I probably have to save the URL requested somewhere
+//took from https://tutorialedge.net/creating-simple-restful-json-api-with-go and just adding jsons doesn't break it
+//TO DO:figure out how routers work and why I can't install it
+type ValidationResponce struct {
+	OriginalURL string `json:"url"`    
+	SafeURL      bool   `json:"safety"` //not sure if should go for the safe or unsafe one here
+	
+}
 //function that searches the database for malware URLs
 //should search the database using something like this: GET /urlinfo/1/{hostname_and_port}/{original_path_and_query_string}
 func DataBaseValidation(url string) bool {
