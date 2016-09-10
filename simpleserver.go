@@ -2,7 +2,9 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"html"
+	"io"
 	"log"
 	"net/http"
 	"unicode/utf8"
@@ -40,7 +42,7 @@ func JsonResponse(w http.ResponseWriter, r *http.Request) {
 }
 
 //  function with 2 flows depending on the URL requested (one for malware URLs and one for ok URLs)
-/*func urlinfo(w io.Writer, url string) {
+func urlinfo(w io.Writer, url string) {
 	UnsafeUrl := DatabaseValidation(url)
 	if UnsafeUrl == true {
 		fmt.Fprintf(w, "URL IS BAD, please try another URL")
@@ -48,14 +50,14 @@ func JsonResponse(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "URL IS GOOD")
 	}
 
-}*/
+}
 func main() {
 	router := mux.NewRouter().StrictSlash(true)
 	//this is handling the urlinfo function to handle url requests
-	/*	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		urlinfo(w, html.EscapeString(r.URL.Path))
-	}) */
-	router.HandleFunc("/", JsonResponse).Methods("GET")
+	})
+	router.HandleFunc("/urlinfo/1/{urlinfo}", JsonResponse).Methods("GET")
 	log.Fatal(http.ListenAndServe(":8081", nil))
 
 }
