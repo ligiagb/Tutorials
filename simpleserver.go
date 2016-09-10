@@ -21,17 +21,18 @@ type ValidationResponce struct {
 }
 
 //function that searches the database for malware URLs
-//should search the database using something like this: GET /urlinfo/1/{hostname_and_port}/{original_path_and_query_string}
+//(from Skye) should search the database using something like this: GET /urlinfo/1/{hostname_and_port}/{original_path_and_query_string}
 func DatabaseValidation(url string) bool {
-	// if function to consider all websites with an odd number of character as malware
+	// if function to consider all websites with an odd number of character as malware for now
 	urlLength := utf8.RuneCountInString(html.EscapeString(url))
 	if urlLength%2 == 0 {
 		return true
 	} else {
 		return false
 	}
-
 }
+
+//function to build the json response
 func JsonResponse(w http.ResponseWriter, r *http.Request) {
 	url := r.URL.Path
 	UnsafeUrl := DatabaseValidation(url)
@@ -57,6 +58,7 @@ func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		urlinfo(w, html.EscapeString(r.URL.Path))
 	})
+	// json response is here, not really sure hot to make it print on borwnser -  have to figure out how to cache it
 	router.HandleFunc("/urlinfo/1/{urlinfo}", JsonResponse).Methods("GET")
 	log.Fatal(http.ListenAndServe(":8081", nil))
 
