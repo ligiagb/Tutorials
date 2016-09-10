@@ -12,7 +12,6 @@ import (
 
 //json to tell the client website is safe and return the same URL - I probably have to save the URL requested somewhere
 //took from https://tutorialedge.net/creating-simple-restful-json-api-with-go and just added jsons doesn't break it
-//TO DO:figure out how routers work
 type ValidationResponce struct {
 	OriginalURL string `json:"url"`
 	FlaggedURL  bool   `json:"flagged"` //not sure if should go for the safe or unsafe one here
@@ -56,7 +55,7 @@ func main() {
 	/*	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		urlinfo(w, html.EscapeString(r.URL.Path))
 	}) */
-	router.HandleFunc("/", JsonResponse)
+	router.HandleFunc("/", JsonResponse).Methods("GET")
 	log.Fatal(http.ListenAndServe(":8081", nil))
 
 }
