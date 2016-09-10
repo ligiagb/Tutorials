@@ -32,8 +32,8 @@ func DatabaseValidation(url string) bool {
 	}
 }
 
-//function to build the json response
-func JsonResponse(w http.ResponseWriter, r *http.Request) {
+//function to build the JSON response
+func ValidationJsonResponse(w http.ResponseWriter, r *http.Request) {
 	url := r.URL.Path
 	UnsafeUrl := DatabaseValidation(url)
 	Response := ValidationResponce{OriginalURL: url, FlaggedURL: UnsafeUrl}
@@ -58,8 +58,8 @@ func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		urlinfo(w, html.EscapeString(r.URL.Path))
 	})
-	// json response is here, not really sure hot to make it print on borwnser -  have to figure out how to cache it
-	router.HandleFunc("/urlinfo/1/{urlinfo}", JsonResponse).Methods("GET")
+	// JSON response is here, not really sure hot to make it print on borwnser -  have to figure out how to cache it
+	router.HandleFunc("/urlinfo/1/{urlinfo}", ValidationJsonResponse).Methods("GET")
 	log.Fatal(http.ListenAndServe(":8081", nil))
 
 }
