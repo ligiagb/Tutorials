@@ -1,0 +1,12 @@
+{
+	"ImportPath": "github.com/ligiagb/Tutorials",
+	"GoVersion": "go1.7",
+	"GodepVersion": "v74",
+	"Deps": [
+		{
+			"ImportPath": "github.com/gorilla/mux",
+			"Comment": "v1.1-25-g0a192a1",
+			"Rev": "0a192a193177452756c362c20087ddafcf6829c4"
+		}
+	]
+}
