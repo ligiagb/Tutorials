@@ -23,6 +23,7 @@ func TestHandlerURLFound(t *testing.T) {
 	w := httptest.NewRecorder()
 	MalwareResponse(w, req)
 	assert.Equal(t, http.StatusOK, w.Code)
-	assert.Equal(t, `{"status":"bad"}`, w.Body.String())
+	assert.Equal(t, `{"status":"bad"}
+`, w.Body.String())
 
 }
