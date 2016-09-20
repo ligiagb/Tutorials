@@ -19,7 +19,7 @@ func TestHandlerURLNotFound(t *testing.T) {
 
 func TestHandlerURLFound(t *testing.T) {
 
-	req := httptest.NewRequest("GET", "http://test.test/urlinfo/1/capacitacion.inami.gob.mx/capa.exe", nil)
+	req := httptest.NewRequest("GET", "http://alexiscorp.com/fonts/half/file.php", nil)
 	w := httptest.NewRecorder()
 	MalwareResponse(w, req)
 	assert.Equal(t, http.StatusOK, w.Code)
